@@ -12,7 +12,8 @@ from configs.config import response_header, \
     status_ok, \
     status_notfound
 from pkg.apis.v1.ocr import Ocr
-from flask import Flask
+from flask import Flask, \
+    request
 
 # app flask program entry.
 app = Flask(__name__)
@@ -44,8 +45,11 @@ def no_route(e):
 api_v1 = "/api/v1"
 
 
-@app.route(api_v1 + "/ocr")
+@app.route(api_v1 + "/ocr", methods=['POST'])
 def easy_ocr():
-    v1ocr = Ocr([], "pic_path")
-    data = v1ocr.read_data()
-    return data, status_ok, response_header
+    req_data = request.json
+    lang = req_data["lang"]
+    pic_name = req_data["pic_name"]
+    v1ocr = Ocr(lang, pic_name)
+    res_data = v1ocr.read_data()
+    return res_data, status_ok, response_header
