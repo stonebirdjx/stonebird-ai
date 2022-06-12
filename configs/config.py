@@ -17,4 +17,5 @@ response_header = {
 
 # status code
 status_ok = 200
+status_no_content = 204
 status_notfound = 404

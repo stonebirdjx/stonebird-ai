@@ -7,6 +7,7 @@ You can contact me in the following ways:
 File: ocr  2022/6/11 10:18
 Desc: deal with ocr handle
 """
+import easyocr
 
 
 class Ocr(object):
@@ -16,9 +17,11 @@ class Ocr(object):
         self.__lang = lang
         self.__pic_name = pic_name
 
-    def read_data(self) -> {}:
+    def read_data(self) -> []:
         """
         Image text extraction
         :return:[]
         """
-        return {"ocr": "ocr"}
+        reader = easyocr.Reader(self.__lang, gpu=False)
+        result = reader.readtext(self.__pic_name)
+        return result
